@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "542950705",
+    "project_id": "nirvana-ca05d",
+    "storage_bucket": "nirvana-ca05d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542950705:android:e66cc987ca99f13bab1c10",
+        "android_client_info": {
+          "package_name": "com.example.night_out"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542950705-tobbksqslve0rb8kmugubaqca7f6a3vb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9vGg2ak_38ad11Pu8SzXLluJX1ypdw4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542950705-tobbksqslve0rb8kmugubaqca7f6a3vb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
