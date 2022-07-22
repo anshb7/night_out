@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:night_out/otpscreen.dart';
 import 'package:night_out/provider/googlesignin.dart';
+import 'package:night_out/screens/productspage.dart';
 import 'package:provider/provider.dart';
 
 class Loginpage extends StatefulWidget {
@@ -54,25 +55,28 @@ class _LoginpageState extends State<Loginpage> {
                 alignment: Alignment.center,
                 child: Padding(
                   padding: EdgeInsets.all(10),
-                  child: TextField(
-                      cursorColor: Colors.black,
-                      controller: phone_no,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                          prefix: Padding(
-                            padding: EdgeInsets.all(4),
-                            child: Text('+91'),
-                          ),
-                          focusColor: Colors.black,
-                          labelText: "Enter phone no.",
-                          labelStyle: TextStyle(color: Colors.black),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                              borderRadius: BorderRadius.circular(5)),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                            color: Colors.black,
-                          )))),
+                  child: SizedBox(
+                    height: 50,
+                    child: TextField(
+                        cursorColor: Colors.black,
+                        controller: phone_no,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                            prefix: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Text('+91'),
+                            ),
+                            focusColor: Colors.black,
+                            labelText: "Enter phone no:",
+                            labelStyle: TextStyle(color: Colors.black),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                                borderRadius: BorderRadius.circular(5)),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.black,
+                            )))),
+                  ),
                 ),
               ),
               Align(
@@ -98,7 +102,7 @@ class _LoginpageState extends State<Loginpage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     """OR""",
-                    style: TextStyle(fontFamily: "SignPainter", fontSize: 40),
+                    style: TextStyle(fontFamily: "SignPainter", fontSize: 30),
                   ),
                 ),
               ),
