@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:night_out/main.dart';
-import 'package:night_out/productspage.dart';
+import 'package:night_out/screens/productspage.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPScreen extends StatefulWidget {

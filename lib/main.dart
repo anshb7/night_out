@@ -4,6 +4,7 @@ import 'package:night_out/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:night_out/otpscreen.dart';
 import 'package:night_out/provider/googlesignin.dart';
+import 'package:night_out/screens/productspage.dart';
 import 'package:provider/provider.dart';
 import 'loginnpage.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:night_out/productspage.dart';
+import 'package:night_out/screens/productspage.dart';
 import 'login.dart';
 
 class Loginnpage extends StatelessWidget {
