@@ -1,5 +1,9 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +23,12 @@ class Prodcutspage extends StatefulWidget {
 }
 
 class _ProdcutspageState extends State<Prodcutspage> {
+  UploadTask? uploadTask;
+  File? file;
   var title;
   var description;
   var price;
+  late String imageUrl;
   final _titlefocusnode = FocusNode();
   final _priceFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
@@ -31,6 +38,7 @@ class _ProdcutspageState extends State<Prodcutspage> {
   final _form = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final filename = file != null ? basename(file!.path) : "No file Selected";
     CollectionReference users = FirebaseFirestore.instance.collection("users");
     final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
@@ -152,7 +160,7 @@ class _ProdcutspageState extends State<Prodcutspage> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
+                  child: TextField(
                     onChanged: (value) {
                       price = double.parse(value);
                     },
@@ -160,7 +168,7 @@ class _ProdcutspageState extends State<Prodcutspage> {
                     focusNode: _priceFocusNode,
                     decoration: InputDecoration(
                         focusColor: Colors.black,
-                        labelText: "Upload an image",
+                        labelText: filename.toString(),
                         labelStyle: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.w500),
                         border: OutlineInputBorder(
@@ -174,7 +182,9 @@ class _ProdcutspageState extends State<Prodcutspage> {
                 ),
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    selecfile();
+                  },
                   icon: Icon(
                     Icons.upload_sharp,
                     size: 30,
@@ -191,7 +201,8 @@ class _ProdcutspageState extends State<Prodcutspage> {
                           .add({
                             "title": title,
                             "description": description,
-                            "price": price
+                            "price": price,
+                            "imageUrl": imageUrl
                           })
                           .then((value) => print("User Added"))
                           .catchError((error) => print("Failed to add user"));
@@ -211,6 +222,21 @@ class _ProdcutspageState extends State<Prodcutspage> {
       return null;
     }
     final path = result.files.single.path;
-    setState(() {});
+    setState(() => file = File(path.toString()));
+  }
+
+  Future uploadfile() async {
+    if (file == null) {
+      return;
+    }
+    final fileName = File(file!.path);
+    final destination = "productImages/$fileName";
+    final ref = FirebaseStorage.instance.ref().child(destination);
+    uploadTask = ref.putFile(fileName);
+    final snapshot = await uploadTask!.whenComplete(() => {});
+    final url = await snapshot.ref.getDownloadURL();
+    setState(() {
+      imageUrl = url;
+    });
   }
 }
