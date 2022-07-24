@@ -13,8 +13,8 @@ class Products with ChangeNotifier {
   CollectionReference users = FirebaseFirestore.instance.collection("users");
   List<Product> _items = [];
 
-  Future<List> get items async {
-    await users
+  List<Product> get items {
+    users
         .snapshots()
         .map((QuerySnapshot querySnapshot) => querySnapshot.docs.map(
             (DocumentSnapshot documentSnapshot) => Product(

@@ -1,7 +1,10 @@
 // ignore_for_file: unused_local_variable
 
 import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:night_out/provider/productdetails.dart';
+import 'package:night_out/provider/products.dart';
 import 'package:night_out/screens/add_productscreen.dart';
 import 'package:path/path.dart';
 
@@ -26,7 +29,14 @@ class Prodcutspage extends StatefulWidget {
 class _ProdcutspageState extends State<Prodcutspage> {
   final user = FirebaseAuth.instance.currentUser;
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final prod = Provider.of<Products>(context, listen: false);
+    final products = prod.items;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
@@ -64,6 +74,25 @@ class _ProdcutspageState extends State<Prodcutspage> {
               color: Colors.black, fontFamily: "SignPainter", fontSize: 35),
         ),
       ),
+      body: GridView.builder(
+          itemCount: products.length,
+          padding: EdgeInsets.all(8),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+          ),
+          itemBuilder: (BuildContext ctx, i) {
+            return GridTile(
+              child: GestureDetector(
+                child: Image.network(products[i].imageUrl),
+              ),
+              footer: GridTileBar(
+                backgroundColor: Colors.black,
+                title: Text(products[i].title),
+              ),
+            );
+          }),
     );
   }
 }

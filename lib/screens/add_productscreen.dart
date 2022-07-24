@@ -202,7 +202,9 @@ class _AddProductState extends State<AddProduct> {
                     },
                     child: Text("Submit")),
               ),
-            )
+            ),
+            SizedBox(height: 20),
+            uploadTask != null ? buildUploadStatus(uploadTask!) : Container(),
           ],
         )),
       ),
@@ -226,10 +228,44 @@ class _AddProductState extends State<AddProduct> {
     final destination = "productImages/$fileName";
     final ref = FirebaseStorage.instance.ref().child(destination);
     uploadTask = ref.putFile(fileName);
+    setState(() {});
     final snapshot = await uploadTask!.whenComplete(() => {});
     final url = await snapshot.ref.getDownloadURL();
     setState(() {
       imageUrl = url;
     });
   }
+
+  Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
+        stream: task.snapshotEvents,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final snap = snapshot.data!;
+            final progress = snap.bytesTransferred / snap.totalBytes;
+            final double percentage = (progress * 100);
+
+            return Expanded(
+              child: Column(children: [
+                SizedBox(
+                  height: 20,
+                  child: LinearProgressIndicator(
+                    value: percentage,
+                    backgroundColor: Colors.grey,
+                    color: Colors.black,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '$percentage % files uploaded',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ]),
+            );
+          } else {
+            return Container();
+          }
+        },
+      );
 }

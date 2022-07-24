@@ -4,13 +4,14 @@ import 'package:night_out/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:night_out/otpscreen.dart';
 import 'package:night_out/provider/googlesignin.dart';
+import 'package:night_out/provider/products.dart';
 import 'package:night_out/screens/productspage.dart';
 import 'package:provider/provider.dart';
 import 'loginnpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(
     MyApp(),
   );
@@ -21,8 +22,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => GoogleSignInProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: GoogleSignInProvider()),
+        ChangeNotifierProvider.value(value: Products()),
+      ],
       child: MaterialApp(
         home: Homepage(),
       ),
