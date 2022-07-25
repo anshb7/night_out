@@ -60,12 +60,6 @@ class _HomepageState extends State<Homepage> {
               ),
               textAlign: TextAlign.center,
             ),
-            Text(
-              "pret couture",
-              style: TextStyle(
-                  fontFamily: "SignPainter", fontSize: 10, color: Colors.black),
-              textAlign: TextAlign.right,
-            ),
           ],
         ),
       ),
