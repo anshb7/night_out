@@ -12,4 +12,12 @@ class Product with ChangeNotifier {
     required this.price,
     required this.imageUrl,
   });
+
+  static Product fromJson(Map<String, dynamic> json) {
+    return Product(
+        title: json['title'],
+        description: json['description'],
+        price: json['price'],
+        imageUrl: json['imageUrl']);
+  }
 }

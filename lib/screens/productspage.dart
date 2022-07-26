@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../provider/googlesignin.dart';
 import 'package:file_picker/file_picker.dart';
+import '../provider/products.dart';
 
 class Prodcutspage extends StatefulWidget {
   const Prodcutspage({Key? key}) : super(key: key);
@@ -33,10 +34,14 @@ class _ProdcutspageState extends State<Prodcutspage> {
     super.initState();
   }
 
+  Future<void> _refreshProducts(BuildContext context) async {
+    await getusersdata();
+  }
+
   @override
   Widget build(BuildContext context) {
     final prod = Provider.of<Products>(context, listen: false);
-    final products = prod.items;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
@@ -74,25 +79,43 @@ class _ProdcutspageState extends State<Prodcutspage> {
               color: Colors.black, fontFamily: "SignPainter", fontSize: 35),
         ),
       ),
-      body: GridView.builder(
-          itemCount: products.length,
-          padding: EdgeInsets.all(8),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-          ),
-          itemBuilder: (BuildContext ctx, i) {
-            return GridTile(
-              child: GestureDetector(
-                child: Image.network(products[i].imageUrl),
-              ),
-              footer: GridTileBar(
-                backgroundColor: Colors.black,
-                title: Text(products[i].title),
-              ),
-            );
-          }),
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: StreamBuilder<List<Product>>(
+            stream: getusersdata(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final products = snapshot.data!.toList();
+                return GridView.builder(
+                    itemCount: products.length,
+                    padding: EdgeInsets.all(8),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
+                    itemBuilder: (BuildContext ctx, i) {
+                      return GridTile(
+                        child: GestureDetector(
+                          child: Image.network(products[i].imageUrl),
+                        ),
+                        footer: GridTileBar(
+                          backgroundColor: Colors.black,
+                          title: Text(products[i].title),
+                        ),
+                      );
+                    });
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }),
+      ),
     );
   }
 }
+
+Stream<List<Product>> getusersdata() =>
+    FirebaseFirestore.instance.collection('users').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => Product.fromJson(doc.data())).toList());

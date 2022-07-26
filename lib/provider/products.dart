@@ -18,28 +18,4 @@ class Products with ChangeNotifier {
   List<Product> get items {
     return [..._items];
   }
-
-  Future getusersdata() async {
-    try {
-      final uid = user!.uid;
-      var data = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(uid)
-          .collection("users")
-          .orderBy("price", descending: true)
-          .get() as Map<String, dynamic>;
-      final List<Product> loadedproducts = [];
-      data.forEach((uid, value) {
-        loadedproducts.add(Product(
-            title: value["title"],
-            description: value["description"],
-            price: value["price"],
-            imageUrl: value["imageUrl"]));
-      });
-      _items = loadedproducts;
-      notifyListeners();
-    } catch (error) {
-      throw error;
-    }
-  }
 }
