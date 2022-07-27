@@ -37,8 +37,10 @@ class _AddProductState extends State<AddProduct> {
   @override
   Widget build(BuildContext context) {
     final filename = file != null ? basename(file!.path) : "No file Selected";
-    CollectionReference users = FirebaseFirestore.instance.collection("users");
+
     final user = FirebaseAuth.instance.currentUser;
+    CollectionReference Currentuser =
+        FirebaseFirestore.instance.collection(user!.displayName.toString());
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -136,6 +138,10 @@ class _AddProductState extends State<AddProduct> {
                   return null;
                 },
                 decoration: InputDecoration(
+                    prefix: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text("₹"),
+                    ),
                     focusColor: Colors.black,
                     labelText: "Enter the price of your product",
                     labelStyle: TextStyle(
@@ -190,13 +196,12 @@ class _AddProductState extends State<AddProduct> {
                     style: ElevatedButton.styleFrom(primary: Colors.black),
                     onPressed: () {
                       uploadfile();
-                      users
-                          .add({
-                            "title": title,
-                            "description": description,
-                            "price": price,
-                            "imageUrl": imageUrl
-                          })
+                      Currentuser.add({
+                        "title": title,
+                        "description": description,
+                        "price": price,
+                        "imageUrl": imageUrl
+                      })
                           .then((value) => print("User Added"))
                           .catchError((error) => print("Failed to add user"));
                     },

@@ -28,6 +28,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: Products()),
       ],
       child: MaterialApp(
+        theme: ThemeData(
+            colorScheme: ColorScheme.fromSwatch()
+                .copyWith(primary: Colors.black, secondary: Colors.black),
+            fontFamily: "Roboto",
+            textSelectionTheme:
+                TextSelectionThemeData(cursorColor: Colors.black),
+            progressIndicatorTheme: ProgressIndicatorThemeData(
+              color: Colors.black,
+              refreshBackgroundColor: Colors.black,
+              circularTrackColor: Colors.white,
+            ),
+            androidOverscrollIndicator: AndroidOverscrollIndicator.glow),
         home: Homepage(),
       ),
     );
@@ -133,7 +145,7 @@ class _HomepageState extends State<Homepage> {
               autoPlayCurve: Curves.fastOutSlowIn,
               enableInfiniteScroll: true,
               autoPlayAnimationDuration: Duration(milliseconds: 1000),
-              viewportFraction: 0.8,
+              viewportFraction: 0.6,
             ),
           ),
           Padding(

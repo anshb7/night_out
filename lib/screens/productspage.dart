@@ -114,8 +114,10 @@ class _ProdcutspageState extends State<Prodcutspage> {
       ),
     );
   }
-}
 
-Stream<List<Product>> getusersdata() =>
-    FirebaseFirestore.instance.collection('users').snapshots().map((snapshot) =>
-        snapshot.docs.map((doc) => Product.fromJson(doc.data())).toList());
+  Stream<List<Product>> getusersdata() => FirebaseFirestore.instance
+      .collection(user!.displayName.toString())
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => Product.fromJson(doc.data())).toList());
+}
