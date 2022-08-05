@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:night_out/main.dart';
 import 'package:night_out/provider/productdetails.dart';
 import 'package:night_out/provider/products.dart';
 import 'package:night_out/screens/add_productscreen.dart';
@@ -40,8 +41,6 @@ class _ProdcutspageState extends State<Prodcutspage> {
 
   @override
   Widget build(BuildContext context) {
-    final prod = Provider.of<Products>(context, listen: false);
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
@@ -96,12 +95,15 @@ class _ProdcutspageState extends State<Prodcutspage> {
                     ),
                     itemBuilder: (BuildContext ctx, i) {
                       return GridTile(
+                        // ignore: sort_child_properties_last
                         child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyApp()));
+                          },
                           child: Image.network(products[i].imageUrl),
-                        ),
-                        footer: GridTileBar(
-                          backgroundColor: Colors.black,
-                          title: Text(products[i].title),
                         ),
                       );
                     });

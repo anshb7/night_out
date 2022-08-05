@@ -4,6 +4,7 @@ import 'package:night_out/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:night_out/otpscreen.dart';
 import 'package:night_out/provider/googlesignin.dart';
+import 'package:night_out/provider/productdetails.dart';
 import 'package:night_out/provider/products.dart';
 import 'package:night_out/screens/productspage.dart';
 import 'package:provider/provider.dart';
@@ -25,12 +26,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: GoogleSignInProvider()),
-        ChangeNotifierProvider.value(value: Products()),
+        ChangeNotifierProvider.value(value: Products())
       ],
       child: MaterialApp(
         theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch()
-                .copyWith(primary: Colors.black, secondary: Colors.black),
+                .copyWith(primary: Colors.white, secondary: Colors.white),
             fontFamily: "Roboto",
             textSelectionTheme:
                 TextSelectionThemeData(cursorColor: Colors.black),
@@ -77,76 +78,14 @@ class _HomepageState extends State<Homepage> {
       ),
       body: ListView(
         children: [
-          CarouselSlider(
-            items: [
-              Container(
-                margin: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  image: DecorationImage(
-                    scale: 2,
+          Container(
+            height: double.infinity,
+            width: 475,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fitHeight,
                     image: NetworkImage(
-                        "https://www.fabindia.com/ccstore/v1/images/?source=/file/v5502430193602780392/products/10702398WN.f.14.10.21.jpg&height=475&width=475"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.all(6.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        "https://www.fabindia.com/ccstore/v1/images/?source=/file/v2980669719710341180/products/10730264YL.f.19.04.22.JPG&height=940&width=940"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.all(6.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        "https://www.fabindia.com/ccstore/v1/images/?source=/file/v9024915306022692968/products/10679377BU.f.15.04.21.jpg&height=475&width=475"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.all(6.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        "https://www.fabindia.com/ccstore/v1/images/?source=/file/v6031255366014275427/products/10713450RD.f.15.01.2022.jpg&height=475&width=475"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.all(6.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          "https://www.fabindia.com/ccstore/v1/images/?source=/file/v730584163968987835/products/10712230BU.f.23022022.jpg&height=475&width=475"),
-                      fit: BoxFit.cover),
-                ),
-              ),
-            ],
-
-            //Slider Container properties
-            options: CarouselOptions(
-              height: 475,
-              enlargeCenterPage: true,
-              autoPlay: true,
-              aspectRatio: 9 / 16,
-              autoPlayCurve: Curves.fastOutSlowIn,
-              enableInfiniteScroll: true,
-              autoPlayAnimationDuration: Duration(milliseconds: 1000),
-              viewportFraction: 0.6,
-            ),
+                        "https://st2.depositphotos.com/2333335/7730/v/450/depositphotos_77309022-stock-illustration-vector-watercolor-pink-dress.jpg"))),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
